@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="he">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>לוח מודעות משרות</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <div class="datetime-container">
+                <div id="clock">00:00:00</div>
+                <div id="date">01/01/2024</div>
+            </div>
+            <div class="title">
+                🏢 לוח מודעות משרות 💼
+            </div>
+            <button id="darkModeToggle" class="dark-mode-toggle" aria-label="שינוי מצב תצוגה">🌙</button>
+            <div class="notifications-wrapper">
+                <button id="notifyBtn" class="notify-btn" aria-label="התראות">
+                    🔔 <span class="notify-badge">0</span>
+                </button>
+                <div class="notifications-panel">
+                    <div class="notifications-header">
+                        התראות
+                        <button class="clear-all">נקה הכל</button>
+                    </div>
+                    <div class="notifications-list">
+                        <!-- Notifications will be added here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Stats bar moved here -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <span class="stat-number" id="totalJobs">3</span>
+            <span class="stat-label">משרות פעילות</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number" id="newToday">3</span>
+            <span class="stat-label">משרות חדשות היום</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number" id="viewsToday">12</span>
+            <span class="stat-label">צפיות היום</span>
+        </div>
+        <div class="stat-item phone-number">
+            <span class="stat-label">📞 צור קשר</span>
+            <a href="tel:054-328-5967" class="phone-link">054-328-5967</a>
+        </div>
+    </div>
+
+    <!-- Moved search and filter section here, right after header -->
+    <div class="search-filter-container">
+        <input type="text" id="searchInput" placeholder="🔍 חיפוש משרות..." class="search-input">
+
+        <!-- Advanced filters moved here -->
+        <div class="advanced-filters">
+            <div class="filters-grid">
+                <div class="filter-group salary-group">
+                    <label>💰 טווח שכר</label>
+                    <div class="range-slider">
+                        <span class="range-value min-value">₪0</span>
+                        <input type="range" min="0" max="50000" step="1000" class="salary-range">
+                        <span class="range-value max-value">₪50,000</span>
+                    </div>
+                </div>
+
+                <div class="filter-group experience-group">
+                    <label>👔 ניסיון</label>
+                    <div class="pill-buttons">
+                        <button class="pill-btn">מתחילים</button>
+                        <button class="pill-btn">2-5 שנים</button>
+                        <button class="pill-btn">+5 שנים</button>
+                    </div>
+                </div>
+
+                <div class="filter-group type-group">
+                    <label>⏰ סוג משרה</label>
+                    <div class="pill-buttons">
+                        <button class="pill-btn">מלאה</button>
+                        <button class="pill-btn">חלקית</button>
+                        <button class="pill-btn">פרילנס</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add after search container -->
+    <div class="categories-container">
+        <div class="category-pill active">הכל</div>
+        <div class="category-pill">פיתוח תוכנה</div>
+        <div class="category-pill">שיווק ומכירות</div>
+        <div class="category-pill">משאבי אנוש</div>
+        <div class="category-pill">תפעול</div>
+    </div>
+
+    <div class="container">
+        <div class="notice-board" id="notice-board">
+            <!-- מודעות ייטענו כאן באמצעות JavaScript -->
+        </div>
+    </div>
+
+    <!-- Modal for job details -->
+    <div class="modal" id="job-modal" role="dialog" aria-labelledby="modal-title">
+        <div class="modal-content">
+            <span class="modal-close" id="modal-close">&times;</span>
+            <h3 id="modal-title"></h3>
+            <p id="modal-description"></p>
+            <p><strong>מיקום:</strong> <span id="modal-location"></span></p>
+            <p><strong>דרישות:</strong> <span id="modal-requirements"></span></p>
+            <p><strong>תאריך פרסום:</strong> <span id="modal-date"></span></p>
+            <p><strong>פרטים נוספים:</strong> <span id="modal-details"></span></p>
+            <div class="modal-actions">
+                <button id="whatsappInterest" class="whatsapp-interest-btn">
+                    <img src="whatsapp-icon.png" alt="WhatsApp" class="whatsapp-icon">
+                    אני מעוניין/ת במשרה
+                </button>
+                <button id="telegramInterest" class="telegram-interest-btn">
+                    <img src="telegram-icon.png" alt="Telegram" class="telegram-icon">
+                    אני מעוניין/ת במשרה
+                </button>
+                <button id="emailInterest" class="email-interest-btn">
+                    <img src="email-icon.png" alt="Email" class="email-icon">
+                    אני מעוניין/ת במשרה
+                </button>
+                <button id="linkInterest" class="link-interest-btn">
+                    <img src="link-icon.png" alt="Copy" class="link-icon">
+                    אני מעוניין/ת במשרה
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add after header -->
+    <div class="system-message" id="systemMessage">
+        <span class="message-text">ברוכים הבאים! 🎉 נוספו 5 משרות חדשות היום</span>
+        <button class="message-close">&times;</button>
+    </div>
+
+    <!-- Add before closing body tag -->
+    <button id="backToTop" class="back-to-top">⬆️</button>
+
+    <!-- Add compare feature -->
+    <div class="compare-drawer" id="compareDrawer">
+        <div class="compare-header">
+            השוואת משרות
+            <span class="compare-count">0/3</span>
+        </div>
+        <div class="compare-items">
+            <!-- Compare items will be added here -->
+        </div>
+        <button class="compare-btn" disabled>השווה משרות</button>
+    </div>
+
+    <!-- Add before closing body tag, after the chat widget -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p class="creator-credit">
+                נבנה על ידי <a href="https://www.facebook.com/AnlominusX" target="_blank" class="creator-link">לאון
+                    יעקובוב</a>
+                <span class="footer-year">© 2024</span>
+            </p>
+        </div>
+    </footer>
+    <script src="./scripts.js"></script>
+</body>
+
+</html>
